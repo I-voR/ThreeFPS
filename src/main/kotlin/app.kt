@@ -7,7 +7,7 @@ fun main(args: Array<String>) {
     var map = Map();
     val file = File("map.json");
     val isCreated:Boolean = file.createNewFile();
-    file.writeText("{\"map\": \"\"}")
+    if (isCreated) file.writeText("[]")
 
     get("/") { req, res -> res.redirect("index.html") }
     get("/game") { req, res -> res.redirect("game.html") }
