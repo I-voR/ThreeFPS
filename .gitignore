@@ -25,3 +25,5 @@ hs_err_pid*
 # Idea stuff
 .idea/
 target/
+# node
+node_modules/
