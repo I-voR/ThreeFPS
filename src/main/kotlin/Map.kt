@@ -10,6 +10,7 @@ class Map {
         val gson = Gson()
         val type = object: TypeToken<MutableList<LevelItem>>() {}.type
         val list: MutableList<LevelItem> = gson.fromJson(data, type)
+        println(list)
 
         return gson.toJson(list)
     }
