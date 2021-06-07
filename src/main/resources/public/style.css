@@ -35,3 +35,10 @@ position: absolute;
 .selected{
     border: 2px solid black;
 }
+#danemapy{
+    position: absolute;
+    left:650px;
+    top: 50px;
+    width: 300px;
+    height: 500px;
+}

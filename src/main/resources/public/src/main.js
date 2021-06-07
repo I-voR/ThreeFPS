@@ -32,7 +32,34 @@ $(function () {
         return [chosenCheck, typ]
     }
 
+    function mapRead(mode) {
+        let object = []
+        let tileObj;
+        for (let y = 0; y < 10; y++) {
+            for (let x = 0; x < 10; x++) {
+                if ($('#' + y + '-' + x).attr('class').split(" ").length == 2 && $('#' + y + '-' + x).attr('class').split(" ")[1] != 'delete') {
+                    tileObj = { id: (y + '-' + x), x: x, z: y, type: $('#' + y + '-' + x).attr('class').split(" ")[1], }
+                    object.push(tileObj)
+                }
+            }
+        }
+        if (mode) {
+            return object
+        } else {
+            $('#danemapy').val(JSON.stringify(object, null, 2))
+        }
+    }
 
+    function mapLoad(map) {
+        console.log(map)
+        map.forEach(element => {
+            $("#" + element.id).removeClass()
+            $("#" + element.id).addClass('square').addClass(element.type)
+        });
+
+        $('#danemapy').val(JSON.stringify(map, null, 2))
+
+    }
 
     $(".square").click(function (event) {
         console.log(event.target.className)
@@ -49,12 +76,23 @@ $(function () {
 
 
 
-
+            mapRead(false)
         } else {
             alert("Wybierz typ obiektu!")
         }
 
     });
 
+
+    $("#button-zapisz").click(function (event) {
+        let map = JSON.stringify(mapRead(true))
+        console.log(map)
+        $.post("add", map);
+    });
+    $("#button-wczytaj").click(function (event) {
+        $.post("load", function (data) {
+            mapLoad(jQuery.parseJSON(data))
+        });
+    });
 
 });
