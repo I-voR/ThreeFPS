@@ -1,10 +1,14 @@
 /* eslint-disable require-jsdoc */
 import { MD2Loader } from './MD2Loader'
-import { Mesh, TextureLoader, MeshBasicMaterial } from 'three'
+import {
+    Mesh,
+    TextureLoader,
+    MeshBasicMaterial
+} from 'three'
 
 import darthVaderTex from './assets/DarthVader.jpg'
 
-export default class Model {
+export default class Player {
     constructor(scene, manager) {
         this.scene = scene
         this.mesh = null
@@ -16,7 +20,7 @@ export default class Model {
         new MD2Loader(this.manager).load(
             path,
             geometry => {
-                console.log(geometry.animations)
+                console.log('Player: ', geometry.animations)
                 this.geometry = geometry
 
                 this.mesh = new Mesh(geometry, new MeshBasicMaterial({
