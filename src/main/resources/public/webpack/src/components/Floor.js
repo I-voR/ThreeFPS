@@ -7,9 +7,9 @@ import {
 } from 'three'
 
 export default class Floor extends Mesh {
-    constructor(size, x, z) {
+    constructor(size) {
         super(
-            new PlaneGeometry(size, size),
+            new PlaneGeometry(size * 10, size * 10),
             new MeshBasicMaterial({
                 color: 0x888888,
                 side: DoubleSide,
@@ -19,6 +19,6 @@ export default class Floor extends Mesh {
             })
         )
         this.rotation.x = Math.PI / 2
-        this.position.set(x * size, -size, z * size)
+        this.position.set(size * 4.5, -size / 2, size * 4.5)
     }
 }

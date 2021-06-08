@@ -56,12 +56,8 @@ export default class Main {
         this.enemyArray = []
         let i
 
-        for (let z = 0; z < 10; z++) {
-            for (let x = 0; x < 10; x++) {
-                let floor = new Floor(this.size, x, z)
-                this.scene.add(floor)
-            }
-        }
+        let floor = new Floor(this.size)
+        this.scene.add(floor)
 
         mapa.forEach(element => {
             let boxColor
@@ -148,8 +144,8 @@ export default class Main {
         }
 
         if (this.player.mesh) {
-            // const camVect = new Vector3(-400, 50, 0)
-            const camVect = new Vector3(-0, 5000, 0)
+            const camVect = new Vector3(-400, 50, 0)
+            // const camVect = new Vector3(-0, 5000, 0)
             const camPos = camVect.applyMatrix4(this.player.mesh.matrixWorld)
 
             this.camera.threeCamera.position.x = camPos.x

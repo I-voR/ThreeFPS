@@ -8,8 +8,9 @@ import {
 export default class Cube extends Mesh {
     constructor() {
         super(
-            new BoxGeometry(10, 70, 20),
+            new BoxGeometry(10, 55, 20),
             new MeshBasicMaterial( { transparent: true, opacity: 0 } )
         )
+        this.position.y += 5
     }
 }
