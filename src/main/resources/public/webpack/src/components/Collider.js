@@ -4,7 +4,6 @@ import {
     MeshBasicMaterial,
     Mesh
 } from 'three'
-
 export default class Cube extends Mesh {
     constructor() {
         super(

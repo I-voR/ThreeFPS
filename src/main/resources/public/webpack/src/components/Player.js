@@ -3,11 +3,9 @@ import { MD2Loader } from './MD2Loader'
 import {
     Mesh,
     TextureLoader,
-    MeshBasicMaterial
+    MeshPhongMaterial
 } from 'three'
-
-import darthVaderTex from './assets/DarthVader.jpg'
-
+import playerPNG from './assets/player.png'
 export default class Player {
     constructor(scene, manager) {
         this.scene = scene
@@ -15,19 +13,14 @@ export default class Player {
         this.manager = manager
         this.geometry = null
     }
-
     load(path) {
         new MD2Loader(this.manager).load(
             path,
             geometry => {
-                console.log('Player: ', geometry.animations)
                 this.geometry = geometry
-
-                this.mesh = new Mesh(geometry, new MeshBasicMaterial({
-                    map: new TextureLoader().load(darthVaderTex),
-                    morphTargets: true
-                }))
-                
+                let texture = new TextureLoader().load(playerPNG)
+                let material = new MeshPhongMaterial({ map: texture, morphTargets: true });
+                this.mesh = new Mesh(geometry, material)
                 this.scene.add(this.mesh)
             },
         )
