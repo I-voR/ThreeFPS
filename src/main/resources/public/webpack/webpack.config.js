@@ -1,11 +1,11 @@
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
     entry: './src/index.js',
     output: {
-        filename: 'bundle.js' // bundle.js to wynik kompilacji projektu przez webpacka
+        filename: 'bundle.js'
     },
-    mode: 'development', // none, development, production
+    mode: 'development',
     devServer: {
         port: 8080
     },
@@ -13,10 +13,8 @@ module.exports = {
         new HtmlWebpackPlugin({
             hash: true,
             filename: './src/index.html',
-            title: "page title",
+            title: 'GAME',
             template: './src/index.html',
-            h1: "h1",
-            h2: "h2"
         })
     ],
     module: {
@@ -34,12 +32,11 @@ module.exports = {
                 use: [{
                     loader: 'url-loader',
                     options: {
-                        limit: 8000, // Convert images < 8kb to base64 strings
+                        limit: 8000,
                         name: 'images/[hash]-[name].[ext]'
                     }
                 }]
             }
         ]
     },
-
-};
+}

@@ -1,5 +1,5 @@
 /* eslint-disable require-jsdoc */
-let mapa = [{ "id": "0-0", "x": 0, "z": 0, "type": "wall" }, { "id": "0-1", "x": 1, "z": 0, "type": "wall" }, { "id": "0-2", "x": 2, "z": 0, "type": "wall" }, { "id": "0-3", "x": 3, "z": 0, "type": "wall" }, { "id": "0-4", "x": 4, "z": 0, "type": "wall" }, { "id": "0-5", "x": 5, "z": 0, "type": "wall" }, { "id": "0-6", "x": 6, "z": 0, "type": "wall" }, { "id": "0-7", "x": 7, "z": 0, "type": "wall" }, { "id": "0-8", "x": 8, "z": 0, "type": "wall" }, { "id": "0-9", "x": 9, "z": 0, "type": "wall" }, { "id": "1-0", "x": 0, "z": 1, "type": "wall" }, { "id": "1-1", "x": 1, "z": 1, "type": "light" }, { "id": "1-8", "x": 8, "z": 1, "type": "light" }, { "id": "1-9", "x": 9, "z": 1, "type": "wall" }, { "id": "2-0", "x": 0, "z": 2, "type": "wall" }, { "id": "2-2", "x": 2, "z": 2, "type": "light" }, { "id": "2-7", "x": 7, "z": 2, "type": "light" }, { "id": "2-9", "x": 9, "z": 2, "type": "wall" }, { "id": "3-0", "x": 0, "z": 3, "type": "wall" }, { "id": "3-6", "x": 6, "z": 3, "type": "enemy" }, { "id": "3-9", "x": 9, "z": 3, "type": "wall" }, { "id": "4-0", "x": 0, "z": 4, "type": "wall" }, { "id": "4-6", "x": 6, "z": 4, "type": "treasure" }, { "id": "4-9", "x": 9, "z": 4, "type": "wall" }, { "id": "5-0", "x": 0, "z": 5, "type": "wall" }, { "id": "5-6", "x": 6, "z": 5, "type": "treasure" }, { "id": "5-9", "x": 9, "z": 5, "type": "wall" }, { "id": "6-0", "x": 0, "z": 6, "type": "wall" }, { "id": "6-6", "x": 6, "z": 6, "type": "enemy" }, { "id": "6-9", "x": 9, "z": 6, "type": "wall" }, { "id": "7-0", "x": 0, "z": 7, "type": "wall" }, { "id": "7-2", "x": 2, "z": 7, "type": "light" }, { "id": "7-7", "x": 7, "z": 7, "type": "light" }, { "id": "7-9", "x": 9, "z": 7, "type": "wall" }, { "id": "8-0", "x": 0, "z": 8, "type": "wall" }, { "id": "8-1", "x": 1, "z": 8, "type": "light" }, { "id": "8-8", "x": 8, "z": 8, "type": "light" }, { "id": "8-9", "x": 9, "z": 8, "type": "wall" }, { "id": "9-0", "x": 0, "z": 9, "type": "wall" }, { "id": "9-1", "x": 1, "z": 9, "type": "wall" }, { "id": "9-2", "x": 2, "z": 9, "type": "wall" }, { "id": "9-3", "x": 3, "z": 9, "type": "wall" }, { "id": "9-4", "x": 4, "z": 9, "type": "wall" }, { "id": "9-5", "x": 5, "z": 9, "type": "wall" }, { "id": "9-6", "x": 6, "z": 9, "type": "wall" }, { "id": "9-7", "x": 7, "z": 9, "type": "wall" }, { "id": "9-8", "x": 8, "z": 9, "type": "wall" }, { "id": "9-9", "x": 9, "z": 9, "type": "wall" }]
+let mapa = [{ 'id': '0-0', 'x': 0, 'z': 0, 'type': 'wall' }, { 'id': '0-1', 'x': 1, 'z': 0, 'type': 'wall' }, { 'id': '0-2', 'x': 2, 'z': 0, 'type': 'wall' }, { 'id': '0-3', 'x': 3, 'z': 0, 'type': 'wall' }, { 'id': '0-4', 'x': 4, 'z': 0, 'type': 'wall' }, { 'id': '0-5', 'x': 5, 'z': 0, 'type': 'wall' }, { 'id': '0-6', 'x': 6, 'z': 0, 'type': 'wall' }, { 'id': '0-7', 'x': 7, 'z': 0, 'type': 'wall' }, { 'id': '0-8', 'x': 8, 'z': 0, 'type': 'wall' }, { 'id': '0-9', 'x': 9, 'z': 0, 'type': 'wall' }, { 'id': '1-0', 'x': 0, 'z': 1, 'type': 'wall' }, { 'id': '1-1', 'x': 1, 'z': 1, 'type': 'light' }, { 'id': '1-8', 'x': 8, 'z': 1, 'type': 'light' }, { 'id': '1-9', 'x': 9, 'z': 1, 'type': 'wall' }, { 'id': '2-0', 'x': 0, 'z': 2, 'type': 'wall' }, { 'id': '2-2', 'x': 2, 'z': 2, 'type': 'light' }, { 'id': '2-7', 'x': 7, 'z': 2, 'type': 'light' }, { 'id': '2-9', 'x': 9, 'z': 2, 'type': 'wall' }, { 'id': '3-0', 'x': 0, 'z': 3, 'type': 'wall' }, { 'id': '3-6', 'x': 6, 'z': 3, 'type': 'enemy' }, { 'id': '3-9', 'x': 9, 'z': 3, 'type': 'wall' }, { 'id': '4-0', 'x': 0, 'z': 4, 'type': 'wall' }, { 'id': '4-6', 'x': 6, 'z': 4, 'type': 'treasure' }, { 'id': '4-9', 'x': 9, 'z': 4, 'type': 'wall' }, { 'id': '5-0', 'x': 0, 'z': 5, 'type': 'wall' }, { 'id': '5-6', 'x': 6, 'z': 5, 'type': 'treasure' }, { 'id': '5-9', 'x': 9, 'z': 5, 'type': 'wall' }, { 'id': '6-0', 'x': 0, 'z': 6, 'type': 'wall' }, { 'id': '6-6', 'x': 6, 'z': 6, 'type': 'enemy' }, { 'id': '6-9', 'x': 9, 'z': 6, 'type': 'wall' }, { 'id': '7-0', 'x': 0, 'z': 7, 'type': 'wall' }, { 'id': '7-2', 'x': 2, 'z': 7, 'type': 'light' }, { 'id': '7-7', 'x': 7, 'z': 7, 'type': 'light' }, { 'id': '7-9', 'x': 9, 'z': 7, 'type': 'wall' }, { 'id': '8-0', 'x': 0, 'z': 8, 'type': 'wall' }, { 'id': '8-1', 'x': 1, 'z': 8, 'type': 'light' }, { 'id': '8-8', 'x': 8, 'z': 8, 'type': 'light' }, { 'id': '8-9', 'x': 9, 'z': 8, 'type': 'wall' }, { 'id': '9-0', 'x': 0, 'z': 9, 'type': 'wall' }, { 'id': '9-1', 'x': 1, 'z': 9, 'type': 'wall' }, { 'id': '9-2', 'x': 2, 'z': 9, 'type': 'wall' }, { 'id': '9-3', 'x': 3, 'z': 9, 'type': 'wall' }, { 'id': '9-4', 'x': 4, 'z': 9, 'type': 'wall' }, { 'id': '9-5', 'x': 5, 'z': 9, 'type': 'wall' }, { 'id': '9-6', 'x': 6, 'z': 9, 'type': 'wall' }, { 'id': '9-7', 'x': 7, 'z': 9, 'type': 'wall' }, { 'id': '9-8', 'x': 8, 'z': 9, 'type': 'wall' }, { 'id': '9-9', 'x': 9, 'z': 9, 'type': 'wall' }]
 
 import Renderer from './Renderer'
 import Camera from './Camera'
@@ -18,6 +18,7 @@ import darthMaulMD2 from './assets/DarthMaul.md2'
 import darthVaderTex from './assets/DarthVader.jpg'
 import darthMaulTex from './assets/DarthMaul.jpg'
 import wallTex from './assets/wall.bmp'
+import treasureTex from './assets/treasure.jpg'
 
 import Stats from 'three/examples/jsm/libs/stats.module.js'
 import {
@@ -28,7 +29,7 @@ import {
     Ray,
     AxesHelper,
     Scene,
-    AmbientLight
+    // AmbientLight
 } from 'three'
 
 export default class Main {
@@ -59,19 +60,13 @@ export default class Main {
         this.cubeArray = []
         this.enemyArray = []
         this.lightArray = []
+        this.treasureArray = []
 
         let floor = new Floor(this.size)
         this.scene.add(floor)
         floor = new Floor(this.size)
         floor.position.y = this.size
         this.scene.add(floor)
-
-        // wallTexture.wrapS = RepeatWrapping;
-        // wallTexture.wrapT = RepeatWrapping;
-        // wallTexture.repeat.set(1, 1, 1, 1, 1, 1);
-
-        // this.light = new AmbientLight(0xffff00, 0.5)
-        // this.scene.add(this.light)
 
         mapa.forEach(element => {
             if (element.type === 'enemy') {
@@ -81,28 +76,28 @@ export default class Main {
             } else {
                 let el
                 switch (element.type) {
-                    case 'wall':
-                        el = new Cube(this.size, element.x, element.z, null, wallTex)
-                        this.cubeArray.push(el)
-                        this.scene.add(el)
-                        break
-                    case 'treasure':
-                        el = new Cube(this.size, element.x, element.z, 0x111199, null)
-                        this.scene.add(el)
-                        break
-                    case 'light':
-                        let lightSource = new LightSource(this.scene, this.size, element.x, element.z)
-                        this.lightArray.push(lightSource)
-                        break
-                    default:
-                        console.log('Unsupported type!')
-                        break
+                case 'wall':
+                    el = new Cube(this.size, element.x, element.z, wallTex, false)
+                    this.cubeArray.push(el)
+                    this.scene.add(el)
+                    break
+                case 'treasure':
+                    el = new Cube(this.size / 2, element.x, element.z, treasureTex, true)
+                    this.cubeArray.push(el)
+                    this.scene.add(el)
+                    break
+                case 'light':
+                    this.lightArray.push(new LightSource(this.scene, this.size, element.x, element.z))
+                    break
+                default:
+                    console.error('Unsupported type!')
+                    break
                 }
             }
         })
 
         this.stats = new Stats()
-        this.stats.showPanel(0) // 0: fps, 1: ms, 2: mb
+        this.stats.showPanel(0)
 
         document.body.appendChild(this.stats.dom)
 
@@ -111,10 +106,6 @@ export default class Main {
 
         this.player = new Entity(this.scene, this.manager, darthVaderTex, this.size, 0, 1)
         this.player.load(darthVaderMD2)
-
-        this.manager.onProgress = (item, loaded, total) => {
-            console.log(`progress ${item}: ${loaded} ${total}`)
-        }
 
         this.manager.onLoad = () => {
             this.isLoaded = true
@@ -145,7 +136,6 @@ export default class Main {
         box2.applyMatrix4(object2.matrixWorld)
 
         return box1.intersectsBox(box2)
-
     }
 
     render() {
@@ -160,7 +150,7 @@ export default class Main {
         }
 
         if (this.player.mesh) {
-            const camVect = new Vector3(-400 * (Config.cameraX + 1), 50 * (Config.cameraY + 1), 0)
+            const camVect = new Vector3(-200 * (Config.cameraX + 1), 40 * (Config.cameraY + 1), 0)
             // const camVect = new Vector3(-400, 0, 0)
             // const camVect = new Vector3(-0, 5000, 0)
             const camPos = camVect.applyMatrix4(this.player.mesh.matrixWorld)
@@ -184,6 +174,10 @@ export default class Main {
                     this.collides = true
                     break
                 }
+            }
+
+            for (let i in this.lightArray) {
+                this.lightArray[i].update()
             }
 
             if (!Config.attack) {

@@ -8,25 +8,15 @@ import {
 } from 'three'
 
 export default class Cube extends Mesh {
-    constructor(size, x, z, color, texture) {
-        let parameters = color === null ?
-            {
+    constructor(size, x, z, texture, isTreasure) {
+        super(
+            new BoxGeometry(size, size, size),
+            new MeshPhongMaterial({
                 map: new TextureLoader().load(texture),
                 side: DoubleSide,
                 wireframe: false,
-                transparent: true,
-                opacity: 0.5
-            } : {
-                color: color,
-                side: DoubleSide,
-                wireframe: false,
-                transparent: true,
-                opacity: 0.5
-            }
-        super(
-            new BoxGeometry(size, size, size),
-            new MeshPhongMaterial(parameters)
+            })
         )
-        this.position.set(x * size, size / 2, z * size)
+        this.position.set(x * size * (isTreasure ? 2 : 1), size / 2, z * size * (isTreasure ? 2 : 1))
     }
 }

@@ -9,7 +9,6 @@ import {
 
 import fireTex from './assets/fire.png'
 import Particle from './Particle.js'
-import Config from './Config.js'
 
 export default class Fire extends Object3D {
     constructor(x, y, z) {
@@ -29,10 +28,7 @@ export default class Fire extends Object3D {
             blending: AdditiveBlending
         })
 
-        this.point = new PointLight(0xff6613, 200 * Config.light, 100 * Config.light)
-        this.position.set(this.x, this.y, this.z)
-        this.point.position.set(this.x, this.y, this.z)
-        console.log(this.point.position)
+        this.point = new PointLight(0xff6613, 20, 10)
         this.init()
     }
 
@@ -45,7 +41,6 @@ export default class Fire extends Object3D {
     }
 
     update() {
-        this.point.intensity = 100 * Config.light
         for (let i = 0; i < this.count; i++) {
             this.particles[i].update()
         }
