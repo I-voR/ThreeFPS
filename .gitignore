@@ -28,6 +28,3 @@ target/
 
 # node
 node_modules/
-
-# WebPack
-dist/
