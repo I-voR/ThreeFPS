@@ -1,8 +1,8 @@
-class Level {
-    data class LevelItem(
+class mapJson {
+    data class mapPart(
+        var type    :String,
         var id      :String,
         var x       :Int,
-        var z       :Int,
-        var type    :String
+        var z       :Int
     )
 }
