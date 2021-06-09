@@ -15,3 +15,9 @@ h1 {
     margin-left: 16px;
     top: 70px;
 }
+
+#controls {
+    position: absolute;
+    margin-left: 16px;
+    bottom: 70px;
+}

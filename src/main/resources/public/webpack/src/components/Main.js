@@ -3,9 +3,9 @@ let mapa = [{ "id": "0-0", "x": 0, "z": 0, "type": "wall" }, { "id": "0-1", "x":
 
 import Renderer from './Renderer'
 import Camera from './Camera'
-import Player from './Player'
-import Enemy from './Enemy'
+import Entity from './Entity'
 import Keyboard from './Keyboard'
+import Events from './Events'
 import Animation from './Animation'
 import Config from './Config'
 import Collider from './Collider'
@@ -13,31 +13,29 @@ import Floor from './Floor'
 import Cube from './Cube'
 import darthVaderMD2 from './assets/DarthVader.md2'
 import darthMaulMD2 from './assets/DarthMaul.md2'
+import darthVaderTex from './assets/DarthVader.jpg'
+import darthMaulTex from './assets/DarthMaul.jpg'
+import wallTex from './assets/wall.bmp'
+
 import Stats from 'three/examples/jsm/libs/stats.module.js'
 import {
     LoadingManager,
     Clock,
     Vector3,
-    GridHelper,
     Raycaster,
     Ray,
     AxesHelper,
     Scene,
-    RepeatWrapping,
-    TextureLoader,
-    BoxGeometry,
-    MeshPhongMaterial,
-    Mesh,
-    PointLight
+    AmbientLight
 } from 'three'
 
 export default class Main {
     constructor(container) {
-        this.size = 70
+        Events()
+        this.size = 140
         this.collides = false
         this.isLoaded = null
         this.animation = null
-        this.animationArray = []
         this.animTime = 0
 
         this.container = container
@@ -53,66 +51,49 @@ export default class Main {
         document.getElementById('accuracy').innerText = '0'
 
         this.axesHelper = new AxesHelper(100)
+        this.axesHelper.position.z = this.size
         this.scene.add(this.axesHelper)
 
-        this.wallArray = []
+        this.cubeArray = []
         this.enemyArray = []
-        this.lightArray = []
-        this.treasureArray = []
 
         let floor = new Floor(this.size)
         this.scene.add(floor)
         floor = new Floor(this.size)
-        floor.position.set(this.size * 4.5, this.size / 2, this.size * 4.5)
+        floor.position.y = this.size
         this.scene.add(floor)
 
-        const wallTexture = new TextureLoader().load("./src/components/assets/wall.jpg")
-        const treasureTexture = new TextureLoader().load("./src/components/assets/treasure.jpg")
         //wallTexture.wrapS = RepeatWrapping;
         //wallTexture.wrapT = RepeatWrapping;
         //wallTexture.repeat.set(1, 1, 1, 1, 1, 1);
 
+        this.light = new AmbientLight(0xffff00, 0.5)
+        this.scene.add(this.light)
 
         mapa.forEach(element => {
-            let item
-            let wallGeometry
-            let treasureGeometry
-            switch (element.type) {
-                case 'enemy':
-                    item = new Enemy(this.scene, this.manager, this.size, element.x, element.z)
-                    item.load(darthMaulMD2)
-                    this.enemyArray.push(item)
-                    break
-                case 'wall':
-                    const wallMaterial = new MeshPhongMaterial({ map: wallTexture });
-                    wallGeometry = new BoxGeometry(this.size, this.size, this.size)
-                    item = new Mesh(wallGeometry, wallMaterial);
-                    item.position.set(element.x * this.size, 0, element.z * this.size)
-                    console.log(item)
-                    this.wallArray.push(item)
-                    this.scene.add(item)
-                    break
-                case 'treasure':
-                    const treasureMaterial = new MeshPhongMaterial({ map: treasureTexture });
-                    treasureGeometry = new BoxGeometry(this.size / 2, this.size / 2, this.size / 2)
-                    item = new Mesh(treasureGeometry, treasureMaterial);
-                    item.position.set(element.x * this.size, -this.size / 4, element.z * this.size)
-                    console.log(item)
-                    this.wallArray.push(item)
-                    this.scene.add(item)
-                    break
-                case 'light':
-                    item = new PointLight(0xffffff, 0.1);
-                    item.position.set(element.x * this.size, 0, element.z * this.size)
-                    this.lightArray.push(item)
-                    this.scene.add(item)
-                    break
-                default:
-                    console.log('Unsupported type!')
-                    break
+            if (element.type === 'enemy') {
+                let enemy = new Entity(this.scene, this.manager, darthMaulTex, this.size, element.x, element.z)
+                enemy.load(darthMaulMD2)
+                this.enemyArray.push( { enemy: enemy, animation: null, ray: null })
+            } else {
+                let cube
+                switch (element.type) {
+                    case 'wall':
+                        cube = new Cube(this.size, element.x, element.z, null, wallTex)
+                        break
+                    case 'treasure':
+                        cube = new Cube(this.size, element.x, element.z, 0x111199, null)
+                        break
+                    case 'light':
+                        cube = new Cube(this.size, element.x, element.z, 0x999911, null)
+                        break
+                    default:
+                        console.log('Unsupported type!')
+                        break
+                }
+                this.cubeArray.push(cube)
+                this.scene.add(cube)
             }
-
-
         })
 
         this.stats = new Stats()
@@ -123,7 +104,7 @@ export default class Main {
         this.clock = new Clock()
         this.manager = new LoadingManager()
 
-        this.player = new Player(this.scene, this.manager)
+        this.player = new Entity(this.scene, this.manager, darthVaderTex, this.size, 0, 1)
         this.player.load(darthVaderMD2)
 
         this.manager.onProgress = (item, loaded, total) => {
@@ -137,17 +118,16 @@ export default class Main {
             this.keyboard = new Keyboard(window, this.animation, this.player.mesh)
 
             for (let i in this.enemyArray) {
-                let animation = new Animation(this.enemyArray[i].mesh)
+                let animation = new Animation(this.enemyArray[i].enemy.mesh)
                 animation.playAnim('stand')
-                this.animationArray.push(animation)
+                this.enemyArray[i].animation = animation
             }
         }
 
         this.render()
     }
 
-    detectCollisionCubes(object1, object2) {
-
+    detectCollisions(object1, object2){
         object1.geometry.computeBoundingBox()
         object2.geometry.computeBoundingBox()
         object1.updateMatrixWorld()
@@ -170,26 +150,31 @@ export default class Main {
         let delta = this.clock.getDelta()
         if (this.animation) this.animation.update(delta)
 
-        for (let i in this.animationArray) {
-            if (this.animationArray) this.animationArray[i].update(delta)
+        for (let i in this.enemyArray) {
+            if (this.enemyArray[i].animation) this.enemyArray[i].animation.update(delta)
         }
 
         if (this.player.mesh) {
             const camVect = new Vector3(-400, 50, 0)
+            // const camVect = new Vector3(-400, 0, 0)
             // const camVect = new Vector3(-0, 5000, 0)
             const camPos = camVect.applyMatrix4(this.player.mesh.matrixWorld)
 
             this.camera.threeCamera.position.x = camPos.x
-            this.camera.threeCamera.position.y = camPos.y - (this.size / 2)
+            this.camera.threeCamera.position.y = camPos.y
             this.camera.threeCamera.position.z = camPos.z
 
             this.camera.threeCamera.lookAt(this.player.mesh.position)
 
+            for (let i = 0; i < this.enemyArray.length; i++) {
+                this.enemyArray[i].enemy.mesh.lookAt(this.player.mesh.position)
+            }
+
             document.getElementById('collision').innerText = 'false'
             this.collides = false
 
-            for (let i in this.wallArray) {
-                if (this.wallArray[i] !== null && this.detectCollisionCubes(this.collider, this.wallArray[i])) {
+            for (let i in this.cubeArray) {
+                if (this.cubeArray[i] !== null && this.detectCollisions(this.collider, this.cubeArray[i])) {
                     document.getElementById('collision').innerText = 'true'
                     this.collides = true
                     break
@@ -207,15 +192,23 @@ export default class Main {
                     this.axesHelper.rotation.y -= 0.03
                     this.collider.rotation.y -= 0.03
                 }
-                if (Config.moveForward && !this.collides) {
+                if (Config.moveForward && (!this.collides || Config.noClip)) {
                     this.player.mesh.translateX(Config.run ? 2 : 1)
                     this.axesHelper.translateX(Config.run ? 2 : 1)
                     this.collider.translateX(Config.run ? 2 : 1)
+                } else if (Config.moveForward && (this.collides && !Config.noClip)) {
+                    this.player.mesh.translateX(-0.1)
+                    this.axesHelper.translateX(-0.1)
+                    this.collider.translateX(-0.1)
                 }
-                if (Config.moveBackward) {
+                if (Config.moveBackward && (!this.collides || Config.noClip)) {
                     this.player.mesh.translateX(Config.run ? -2 : -1)
                     this.axesHelper.translateX(Config.run ? -2 : -1)
                     this.collider.translateX(Config.run ? -2 : -1)
+                } else if (Config.moveBackward && (this.collides && !Config.noClip)) {
+                    this.player.mesh.translateX(0.1)
+                    this.axesHelper.translateX(0.1)
+                    this.collider.translateX(0.1)
                 }
             } else {
                 this.animTime += delta
@@ -232,7 +225,7 @@ export default class Main {
                 document.getElementById('accuracy').innerText = parseInt(
                     parseFloat(document.getElementById('hits').innerText) /
                     parseFloat(document.getElementById('shots').innerText) * 100
-                ).toString() + '%'
+                ) + '%'
             }
         }
         if (this.player.mesh && this.intersects && this.raycaster) {

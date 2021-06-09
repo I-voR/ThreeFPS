@@ -3,13 +3,14 @@ import { MD2Loader } from './MD2Loader'
 import {
     Mesh,
     TextureLoader,
-    MeshBasicMaterial
+    MeshPhongMaterial
 } from 'three'
 
 import darthMaulTex from './assets/DarthMaul.jpg'
 
-export default class Enemy {
-    constructor(scene, manager, size, x, z) {
+export default class Entity {
+    constructor(scene, manager, texture, size, x, z) {
+        this.texture = texture
         this.scene = scene
         this.manager = manager
         this.size = size
@@ -19,20 +20,20 @@ export default class Enemy {
         this.geometry = null
     }
 
-    load(path) {
+    load(model) {
         new MD2Loader(this.manager).load(
-            path,
+            model,
             geometry => {
-                console.log('Enemy: ', geometry.animations)
+                console.log(geometry.animations)
                 this.geometry = geometry
 
-                this.mesh = new Mesh(geometry, new MeshBasicMaterial({
-                    map: new TextureLoader().load(darthMaulTex),
+                this.mesh = new Mesh(geometry, new MeshPhongMaterial({
+                    map: new TextureLoader().load(this.texture),
                     morphTargets: true
                 }))
 
                 this.scene.add(this.mesh)
-                this.mesh.position.set(this.x * this.size, 0, this.z * this.size)
+                this.mesh.position.set(this.x * this.size, 25, this.z * this.size)
             },
         )
     }
