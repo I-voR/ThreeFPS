@@ -14,8 +14,8 @@ export default class Cube extends Mesh {
                 map: new TextureLoader().load(texture),
                 side: DoubleSide,
                 wireframe: false,
-                // transparent: true,
-                // opacity: 0.5
+                transparent: true,
+                opacity: 0.5
             } : {
                 color: color,
                 side: DoubleSide,

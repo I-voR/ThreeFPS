@@ -11,6 +11,8 @@ import Config from './Config'
 import Collider from './Collider'
 import Floor from './Floor'
 import Cube from './Cube'
+import LightSource from './LightSource'
+
 import darthVaderMD2 from './assets/DarthVader.md2'
 import darthMaulMD2 from './assets/DarthMaul.md2'
 import darthVaderTex from './assets/DarthVader.jpg'
@@ -56,6 +58,7 @@ export default class Main {
 
         this.cubeArray = []
         this.enemyArray = []
+        this.lightArray = []
 
         let floor = new Floor(this.size)
         this.scene.add(floor)
@@ -63,12 +66,12 @@ export default class Main {
         floor.position.y = this.size
         this.scene.add(floor)
 
-        //wallTexture.wrapS = RepeatWrapping;
-        //wallTexture.wrapT = RepeatWrapping;
-        //wallTexture.repeat.set(1, 1, 1, 1, 1, 1);
+        // wallTexture.wrapS = RepeatWrapping;
+        // wallTexture.wrapT = RepeatWrapping;
+        // wallTexture.repeat.set(1, 1, 1, 1, 1, 1);
 
-        this.light = new AmbientLight(0xffff00, 0.5)
-        this.scene.add(this.light)
+        // this.light = new AmbientLight(0xffff00, 0.5)
+        // this.scene.add(this.light)
 
         mapa.forEach(element => {
             if (element.type === 'enemy') {
@@ -76,23 +79,25 @@ export default class Main {
                 enemy.load(darthMaulMD2)
                 this.enemyArray.push( { enemy: enemy, animation: null, ray: null })
             } else {
-                let cube
+                let el
                 switch (element.type) {
                     case 'wall':
-                        cube = new Cube(this.size, element.x, element.z, null, wallTex)
+                        el = new Cube(this.size, element.x, element.z, null, wallTex)
+                        this.cubeArray.push(el)
+                        this.scene.add(el)
                         break
                     case 'treasure':
-                        cube = new Cube(this.size, element.x, element.z, 0x111199, null)
+                        el = new Cube(this.size, element.x, element.z, 0x111199, null)
+                        this.scene.add(el)
                         break
                     case 'light':
-                        cube = new Cube(this.size, element.x, element.z, 0x999911, null)
+                        let lightSource = new LightSource(this.scene, this.size, element.x, element.z)
+                        this.lightArray.push(lightSource)
                         break
                     default:
                         console.log('Unsupported type!')
                         break
                 }
-                this.cubeArray.push(cube)
-                this.scene.add(cube)
             }
         })
 
@@ -155,7 +160,7 @@ export default class Main {
         }
 
         if (this.player.mesh) {
-            const camVect = new Vector3(-400, 50, 0)
+            const camVect = new Vector3(-400 * (Config.cameraX + 1), 50 * (Config.cameraY + 1), 0)
             // const camVect = new Vector3(-400, 0, 0)
             // const camVect = new Vector3(-0, 5000, 0)
             const camPos = camVect.applyMatrix4(this.player.mesh.matrixWorld)

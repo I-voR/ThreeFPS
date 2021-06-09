@@ -21,3 +21,10 @@ h1 {
     margin-left: 16px;
     bottom: 70px;
 }
+
+#stats,
+#controls {
+    background-color: gainsboro;
+    padding: 4px;
+    border-radius: 4px;
+}

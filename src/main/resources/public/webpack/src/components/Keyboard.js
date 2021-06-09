@@ -1,5 +1,5 @@
 /* eslint-disable require-jsdoc */
-import Config from './Config'
+import Config from './Config.js'
 
 const KEYS = {
     'W': 87,

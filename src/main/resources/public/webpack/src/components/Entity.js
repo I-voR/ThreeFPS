@@ -1,12 +1,10 @@
 /* eslint-disable require-jsdoc */
-import { MD2Loader } from './MD2Loader'
+import { MD2Loader } from './MD2Loader.js'
 import {
     Mesh,
     TextureLoader,
     MeshPhongMaterial
 } from 'three'
-
-import darthMaulTex from './assets/DarthMaul.jpg'
 
 export default class Entity {
     constructor(scene, manager, texture, size, x, z) {
