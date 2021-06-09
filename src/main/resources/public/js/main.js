@@ -17,19 +17,16 @@ $(function () {
         $('#' + event.target.id).addClass('selected')
     })
 
-
-
     function check() {
         let chosenCheck = false
-        let typ
+        let type
         $(".tiletype-button").each(function () {
             if ($('#' + this.id).hasClass('selected')) {
                 chosenCheck = true
-                typ = $('#' + this.id).attr('class').split(" ")[0]
-
+                type = $('#' + this.id).attr('class').split(" ")[0]
             }
         })
-        return [chosenCheck, typ]
+        return [chosenCheck, type]
     }
 
     function mapRead(mode) {
@@ -37,7 +34,8 @@ $(function () {
         let tileObj;
         for (let y = 0; y < 10; y++) {
             for (let x = 0; x < 10; x++) {
-                if ($('#' + y + '-' + x).attr('class').split(" ").length == 2 && $('#' + y + '-' + x).attr('class').split(" ")[1] != 'delete') {
+                if ($('#' + y + '-' + x).attr('class').split(" ").length === 2 &&
+                    $('#' + y + '-' + x).attr('class').split(" ")[1] !== 'delete') {
                     tileObj = { id: (y + '-' + x), x: x, z: y, type: $('#' + y + '-' + x).attr('class').split(" ")[1], }
                     object.push(tileObj)
                 }
@@ -46,19 +44,18 @@ $(function () {
         if (mode) {
             return object
         } else {
-            $('#danemapy').val(JSON.stringify(object, null, 2))
+            $('#mapdata').val(JSON.stringify(object, null, 2))
         }
     }
 
     function mapLoad(map) {
         console.log(map)
         map.forEach(element => {
-            $("#" + element.id).removeClass()
-            $("#" + element.id).addClass('square').addClass(element.type)
-        });
-
-        $('#danemapy').val(JSON.stringify(map, null, 2))
-
+            $("#" + element.id)
+                .removeClass()
+                .addClass('square').addClass(element.type)
+        })
+        $('#mapdata').val(JSON.stringify(map, null, 2))
     }
 
     $(".square").click(function (event) {
@@ -66,33 +63,31 @@ $(function () {
 
         let dane = check()
         if (dane[0]) {
-            if (dane[1] == 'remove') {
-                $("#" + event.target.id).removeClass()
-                $("#" + event.target.id).addClass('square')
+            if (dane[1] === 'remove') {
+                $("#" + event.target.id)
+                    .removeClass()
+                    .addClass('square')
             } else {
-                $("#" + event.target.id).removeClass()
-                $("#" + event.target.id).addClass('square').addClass(dane[1])
+                $("#" + event.target.id)
+                    .removeClass()
+                    .addClass('square').addClass(dane[1])
             }
-
-
 
             mapRead(false)
         } else {
             alert("Wybierz typ obiektu!")
         }
-
-    });
-
+    })
 
     $("#button-zapisz").click(function (event) {
         let map = JSON.stringify(mapRead(true))
         console.log(map)
-        $.post("add", map);
+        $.post("add", map)
     });
+
     $("#button-wczytaj").click(function (event) {
         $.post("load", function (data) {
             mapLoad(jQuery.parseJSON(data))
-        });
-    });
-
-});
+        })
+    })
+})

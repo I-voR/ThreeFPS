@@ -21,7 +21,6 @@ class Map {
     }
 
     fun add(req: Request, res: Response) {
-        println(req.body())
         File("map.json").writeText(main(req.body()))
     }
 }
