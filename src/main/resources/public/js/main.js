@@ -12,7 +12,7 @@ $(function () {
     }
 
     $(".tiletype").on('click', function(event) {
-        $(this).each(function () { $('#' + this.id).removeClass('selected') })
+        $(".selected").each(function () { $(".selected").removeClass('selected') })
         $('#' + event.target.id).addClass('selected')
     })
 
@@ -44,7 +44,6 @@ $(function () {
     }
 
     function mapLoad(map) {
-        console.log(map)
         map.forEach(element => {
             $("#" + element.id)
                 .removeClass()
@@ -54,12 +53,14 @@ $(function () {
     }
 
     $(".square").on('click', function(event) {
-        let dane = check()
-        if (dane[0]) {
+        let data = check()
+
+        console.log(data)
+        if (data[0]) {
             $("#" + event.target.id)
                 .removeClass()
                 .addClass('square')
-                .addClass(dane[1] !== 'remove' ? dane[1] : '')
+                .addClass(data[1] !== 'remove' ? data[1] : '')
 
             mapRead(false)
         }

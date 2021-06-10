@@ -10,7 +10,7 @@ fun main(args: Array<String>) {
     if (isCreated) file.writeText("[]")
 
     get("/") { req, res -> res.redirect("index.html") }
-    get("/game") { req, res -> res.redirect("game.html") }
+    get("/game") { req, res -> res.redirect("/dist/src/index.html") }
     get("/editor") { req, res -> res.redirect("editor.html") }
     post("/add") { req, res -> map.add(req, res) }
     post("/load") { req, res -> map.load(req, res) }
