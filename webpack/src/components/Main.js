@@ -40,10 +40,11 @@ export default class Main {
         this.animTime = 0
 
         this.container = container
+
         this.scene = new Scene()
+        this.raycaster = new Raycaster()
         this.renderer = new Renderer(this.scene, container)
         this.camera = new Camera(this.renderer.threeRenderer)
-
         this.clock = new Clock()
         this.manager = new LoadingManager()
 
@@ -116,6 +117,9 @@ export default class Main {
                 animation.playAnim('stand')
                 this.enemyArray[i].animation = animation
             }
+
+            this.mapped = this.enemyArray.map(a => a = a.enemy.mesh)
+            console.log(this.mapped)
         }
 
         this.render()
@@ -149,8 +153,6 @@ export default class Main {
 
         if (this.player.mesh) {
             const camVect = new Vector3(-200 * (Config.cameraX + 1), 40 * (Config.cameraY + 1), 0)
-            // const camVect = new Vector3(-400, 0, 0)
-            // const camVect = new Vector3(-0, 5000, 0)
             const camPos = camVect.applyMatrix4(this.player.mesh.matrixWorld)
 
             this.camera.threeCamera.position.x = camPos.x
@@ -158,10 +160,6 @@ export default class Main {
             this.camera.threeCamera.position.z = camPos.z
 
             this.camera.threeCamera.lookAt(this.player.mesh.position)
-
-            for (let i = 0; i < this.enemyArray.length; i++) {
-                this.enemyArray[i].enemy.mesh.lookAt(this.player.mesh.position)
-            }
 
             document.getElementById('collision').innerText = 'false'
             this.collides = false
@@ -186,6 +184,30 @@ export default class Main {
 
             for (let i in this.lightArray) {
                 this.lightArray[i].update()
+            }
+
+            if (this.mapped) {
+                let ray = new Ray(
+                    this.player.mesh.getWorldPosition(new Vector3()),
+                    this.player.mesh.getWorldDirection(new Vector3()).applyAxisAngle(new Vector3(0, 1, 0), Math.PI / 2)
+                )
+
+                this.raycaster.ray = ray
+
+                let intersects = this.raycaster.intersectObjects(this.mapped)
+
+                for (let i in this.enemyArray) {
+                    this.enemyArray[i].enemy.mesh.lookAt(this.player.mesh.position)
+
+                    for (let j in intersects) {
+                        if (intersects[j].object.uuid == this.enemyArray[i].enemy.mesh.uuid) {
+                            this.enemyArray[i].enemy.unload(Config.attack)
+                            if (Config.attack) { 
+                                this.enemyArray.splice(i, 1)
+                            }
+                        }
+                    }
+                }
             }
 
             if (!Config.attack) {
@@ -236,7 +258,7 @@ export default class Main {
             }
         }
 
-        if (this.treasureArray.length === 0) {
+        if (this.treasureArray.length === 0 && this.enemyArray.length === 0) {
             document.getElementById('score-shots').innerText =
                 document.getElementById('shots').innerText
             document.getElementById('score-hits').innerText =

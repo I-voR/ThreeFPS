@@ -35,7 +35,10 @@ export default class Entity {
         )
     }
 
-    unload() {
-        this.scene.remove(this.mesh)
+    unload(bool) {
+        if (bool) {
+            this.scene.remove(this.mesh)
+            document.getElementById('hits').innerText = parseInt(document.getElementById('hits').innerText) + 1
+        }
     }
 }

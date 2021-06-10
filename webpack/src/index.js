@@ -1,5 +1,6 @@
+/* eslint-disable require-jsdoc */
 import './style.css'
-import Main from './components/Main';
+import Main from './components/Main'
 
 function init(map) {
     const container = document.getElementById('root')
@@ -7,7 +8,7 @@ function init(map) {
 }
 
 var xhr = new XMLHttpRequest()
-xhr.open("POST", "/load", true)
+xhr.open('POST', '/load', true)
 xhr.setRequestHeader('Content-Type', 'application/json')
 xhr.send()
 

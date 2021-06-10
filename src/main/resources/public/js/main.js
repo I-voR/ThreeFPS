@@ -3,7 +3,6 @@ $(function () {
     for (let y = 0; y < 10; y++) {
         for (let x = 0; x < 10; x++) {
             element = $('<div>')
-            element
                 .css('left', 50 * x + 'px')
                 .css('top', 50 * y + 'px')
                 .attr('id', y + '-' + x)
@@ -12,15 +11,15 @@ $(function () {
         }
     }
 
-    $(".tiletype-button").click(function (event) {
-        $(".tiletype-button").each(function () { $('#' + this.id).removeClass('selected') })
+    $(".tiletype").on('click', function(event) {
+        $(this).each(function () { $('#' + this.id).removeClass('selected') })
         $('#' + event.target.id).addClass('selected')
     })
 
     function check() {
         let chosenCheck = false
         let type
-        $(".tiletype-button").each(function () {
+        $(".tiletype").each(function () {
             if ($('#' + this.id).hasClass('selected')) {
                 chosenCheck = true
                 type = $('#' + this.id).attr('class').split(" ")[0]
@@ -31,7 +30,7 @@ $(function () {
 
     function mapRead(mode) {
         let object = []
-        let tileObj;
+        let tileObj
         for (let y = 0; y < 10; y++) {
             for (let x = 0; x < 10; x++) {
                 if ($('#' + y + '-' + x).attr('class').split(" ").length === 2 &&
@@ -41,11 +40,7 @@ $(function () {
                 }
             }
         }
-        if (mode) {
-            return object
-        } else {
-            $('#mapdata').val(JSON.stringify(object, null, 2))
-        }
+        if (mode) return object; else $('#mapdata').val(JSON.stringify(object, null, 2))
     }
 
     function mapLoad(map) {
@@ -58,36 +53,27 @@ $(function () {
         $('#mapdata').val(JSON.stringify(map, null, 2))
     }
 
-    $(".square").click(function (event) {
-        console.log(event.target.className)
-
+    $(".square").on('click', function(event) {
         let dane = check()
         if (dane[0]) {
-            if (dane[1] === 'remove') {
-                $("#" + event.target.id)
-                    .removeClass()
-                    .addClass('square')
-            } else {
-                $("#" + event.target.id)
-                    .removeClass()
-                    .addClass('square').addClass(dane[1])
-            }
+            $("#" + event.target.id)
+                .removeClass()
+                .addClass('square')
+                .addClass(dane[1] !== 'remove' ? dane[1] : '')
 
             mapRead(false)
-        } else {
-            alert("Wybierz typ obiektu!")
         }
     })
 
-    $("#button-zapisz").click(function (event) {
+    $("#save").on('click', function(event) {
         let map = JSON.stringify(mapRead(true))
         console.log(map)
         $.post("add", map)
-    });
+    })
 
-    $("#button-wczytaj").click(function (event) {
-        $.post("load", function (data) {
-            mapLoad(jQuery.parseJSON(data))
+    $("#load").on('click', function(event) {
+        $.post("load", function(data) {
+            mapLoad(JSON.parse(data))
         })
     })
 })

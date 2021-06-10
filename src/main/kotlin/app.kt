@@ -4,9 +4,9 @@ import java.io.File
 fun main(args: Array<String>) {
     staticFiles.location("/public")
 
-    var map = Map();
-    val file = File("map.json");
-    val isCreated:Boolean = file.createNewFile();
+    val map = Map()
+    val file = File("map.json")
+    val isCreated:Boolean = file.createNewFile()
     if (isCreated) file.writeText("[]")
 
     get("/") { req, res -> res.redirect("index.html") }

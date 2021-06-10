@@ -1,44 +1,70 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: darkgray;
+}
+
+* {
+    color: gainsboro;
+    margin: 4px;
+}
+
 .square {
-width: 50px;
-height: 50px;
-border: 1px black solid;
-position: absolute;
+    width: 50px;
+    height: 50px;
+    border: 1px gray solid;
+    position: absolute;
 }
 
 #tileset {
     position: absolute;
-    top: 150px;
+    top: 120px;
     left: 50px;
 }
 
 .wall {
-    background-color: lightgreen;
+    background-color: darkgreen;
 }
 
 .enemy {
-    background-color: red;
+    background-color: darkred;
 }
 
 .treasure {
-    background-color: blue;
+    background-color: darkblue;
 }
 
 .light {
-    background-color: yellow;
+    background-color: darkgoldenrod;
 }
 
 .tiletype-button {
-    border: 0px black solid;
+    border: 0px gray solid;
 }
 
 .selected {
-    border: 2px solid black;
+    border: 2px solid gray;
 }
 
 #mapdata {
+    background-color: black;
+    color: #33FF00;
     position: absolute;
-    left:650px;
-    top: 150px;
+    left: 650px;
+    top: 120px;
     width: 300px;
     height: 500px;
+}
+
+#button-delete {
+    color: black;
+}
+
+button {
+    padding: 4px;
+    border-radius: 4px;
+    width: 100px;
 }
