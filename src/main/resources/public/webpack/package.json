@@ -13,7 +13,7 @@
   "license": "ISC",
   "devDependencies": {},
   "dependencies": {
-    "glob-parent": ">=5.1.2",
+    "glob-parent": ">=6.0.1",
     "css-what": ">=5.0.1",
     "css-loader": "^5.2.1",
     "html-webpack-plugin": "^5.3.1",
